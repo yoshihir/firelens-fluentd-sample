@@ -1,0 +1,41 @@
+[
+  {
+    "name": "nginx",
+    "image": "xxxxxxxxxxx.dkr.ecr.ap-northeast-1.amazonaws.com/infra/nginx-1.17.4:latest",
+    "cpu": 256,
+    "memory": 512,
+    "essential": true,
+    "portMappings": [
+      {
+        "containerPort": 80,
+        "protocol": "tcp",
+        "hostPort": 80
+      }
+    ],
+    "logConfiguration": {
+      "logDriver": "awsfirelens"
+    }
+  },
+  {
+    "name": "fluentd",
+    "image": "xxxxxxxxxxx.dkr.ecr.ap-northeast-1.amazonaws.com/infra/fluentd-1.7:latest",
+    "cpu": 256,
+    "memory": 512,
+    "essential": true,
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "/ecs/firelens-fluentd",
+        "awslogs-region": "ap-northeast-1",
+        "awslogs-stream-prefix": "ecs"
+      }
+    },
+    "firelensConfiguration": {
+      "type": "fluentd",
+      "options": {
+        "config-file-type": "file",
+        "config-file-value": "/fluentd/etc/fluent-custom.conf"
+      }
+    }
+  }
+]
