@@ -13,9 +13,6 @@ RUN apk add --no-cache --update --virtual .build-deps \
  && apk del .build-deps \
  && rm -rf /tmp/* /var/tmp/* /usr/lib/ruby/gems/*/cache/*.gem
 
-# COPY fluent.conf /fluentd/etc/
-# COPY entrypoint.sh /bin/
-
 COPY fluent.conf /fluentd/etc/fluent-custom.conf
 COPY conf.in      /fluentd/etc/conf.in
 COPY conf.out     /fluentd/etc/conf.out
